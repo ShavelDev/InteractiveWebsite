@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Dla Pysia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+
+   
+</head>
+<body>
+
+    <div class="root" >
+
+        <div class="listView">
+            <div class="sideBar">
+                <div class="logo" onclick="rootOnClick()">
+
+                </div>
+                
+                <p class="sideBar-text">The Charming World of Hamsters</p>
+                <p class="sideBar-text">The Fascinating World of Cats</p>
+                <p class="sideBar-text">The Wonderful World Of Dogs</p>
+            </div>
+            <div class="content">
+                <div class="content-text">
+                    Error in reading the essay data
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="firstLogo" onclick="rootOnClick()"></div>
+
+        <div class = "circle-grid">
+            <div class="grid-element">
+                <div id = "c1" class="circle1-centered"></div>
+                <div id="c1-button" class="c-button c1-button" onclick="circleAction(1)"></div>
+            </div>
+            <div class="grid-element">
+                <div id = "c2" class="circle2-centered"></div>
+                <div id="c2-button" class="c-button c2-button" onclick="circleAction(2)"></div>
+                
+                <p class="c2-text c2-content" >Z Z Z mi mi mi </p>
+                <img class="pysiek c2-content" src="Pysiek.png" alt="">
+                
+            </div>
+            <div class="grid-element">
+                <div id = "c3" class="circle3-centered"></div>
+                <div id="c3-button" class="c-button c3-button" onclick="circleAction(3)"></div>
+            </div>
+            <div class="grid-element">
+                <div id = "c4" class="circle4-centered"></div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script src="./javaMainFile.js" type="module"></script>
+    <script src="./textData.js" type="module"></script>
+    <script src="testFile.js"></script>
+    <script>
+
+        let circlesCenterred = true;
+        hideAllCircles();
+        const secondView = document.getElementsByClassName("listView");
+        secondView[0].style.display = 'none';
+    
+
+
+        function rootOnClick(){
+            circlesCenterred = !circlesCenterred;
+
+
+            
+            if(circlesCenterred){
+
+                const secondView = document.getElementsByClassName("listView");
+                hideElementSmoothly(secondView[0])
+
+                
+                const firstLogo= document.getElementsByClassName("firstLogo");
+                firstLogo[0].style.display = 'block';
+
+                showCircleButtons();
+
+                document.getElementById("c1").classList.remove("circle1-separated");
+                document.getElementById("c1").classList.add("circle1-centered");
+
+                document.getElementById("c2").classList.remove("circle2-separated");
+                document.getElementById("c2").classList.add("circle2-centered");
+
+                document.getElementById("c3").classList.remove("circle3-separated");
+                document.getElementById("c3").classList.add("circle3-centered");
+
+                document.getElementById("c4").classList.remove("circle4-separated");
+                document.getElementById("c4").classList.add("circle4-centered");
+            }else{
+
+                hideAllCircles();
+                hideCircleButtons();
+
+                const secondView = document.getElementsByClassName("listView");
+                showElementSmoothly(secondView[0], 'grid');
+
+                const firstLogo = document.getElementsByClassName("firstLogo");
+                firstLogo[0].style.display = 'none';
+
+
+
+
+
+                document.getElementById("c1").classList.remove("circle1-centered");
+                document.getElementById("c1").classList.add("circle1-separated");
+
+                document.getElementById("c2").classList.remove("circle2-centered");
+                document.getElementById("c2").classList.add("circle2-separated");
+
+                document.getElementById("c3").classList.remove("circle3-centered");
+                document.getElementById("c3").classList.add("circle3-separated");
+
+                document.getElementById("c4").classList.remove("circle4-centered");
+                document.getElementById("c4").classList.add("circle4-separated");
+            }
+        }
+
+
+        function hideCircleButtons(){
+            const circleButtons = document.querySelectorAll(".c-button");
+            circleButtons.forEach(element =>{
+                element.style.display = 'none'
+            });
+        }
+
+        function showCircleButtons(){
+            const circleButtons = document.querySelectorAll(".c-button");
+            circleButtons.forEach(element =>{
+                element.style.display = 'block'
+            });
+        }
+
+
+        function hideAllCircles(){
+            for(var i = 1; i < 5; i++){
+                hideCircleContent(i);
+            }
+            
+        }
+
+        function hideElementSmoothly(element){
+
+            element.style.opacity = 0;
+
+            setTimeout(function() {
+                element.style.display = 'none';
+            }, 300);
+        }
+
+        function showElementSmoothly(element, displayType){
+            element.style.display = displayType;
+            element.style.opacity = 0;
+            
+            setTimeout(function() {
+                element.style.opacity = 1;
+            }, 1);
+        }
+        
+        function undimElementSmoothly(element, displayType){
+            element.style.display = displayType;
+            element.style.filter = 'brightness(0.5)';
+            
+            setTimeout(function() {
+                element.style.filter = 'brightness(1)';
+            }, 1);
+        }
+
+
+
+        function hideCircleContent(circleNum){
+            var circle = document.getElementById('c'+circleNum);
+            circle.classList.add('circle' + circleNum + '-centered');
+            circle.classList.remove('circle'  + circleNum + '-clicked');
+            
+            const circleContent = document.querySelectorAll('.c'+circleNum+'-content');
+            circleContent.forEach(element => {
+                element.style.display = 'none';
+            });
+        }
+
+        function displayCircleContent(circleNum){
+
+            hideAllCircles();
+            var circle = document.getElementById('c'+circleNum);
+            circle.classList.remove('circle' + circleNum + '-centered');
+            circle.classList.add('circle'  + circleNum + '-clicked');
+            const circleContent = document.querySelectorAll('.c'+circleNum+'-content');
+            circleContent.forEach(element => {
+                element.style.display = 'block';
+            });
+        }
+
+        function circleAction(circleNum){
+            var circle = document.getElementById('c'+circleNum);
+            if(circle.classList.contains("circle" + circleNum+ "-centered")){
+                hideAllCircles();
+                circle.classList.remove('circle' + circleNum + '-centered');
+                circle.classList.add('circle'  + circleNum + '-clicked');
+
+                const circleContent = document.querySelectorAll('.c'+circleNum+'-content');
+                circleContent.forEach(element => {
+                    undimElementSmoothly(element, 'block')
+                });
+
+                
+            }
+            else{
+                circle.classList.remove('circle' + circleNum + '-clicked');
+                circle.classList.add('circle'  + circleNum + '-centered');
+
+
+                const circleContent = document.querySelectorAll('.c'+circleNum+'-content');
+                circleContent.forEach(element => {
+                    element.style.display = 'none';
+                });
+            }
+        }
+
+
+        // JavaScript to set the --screen-height variable to the actual screen height
+        document.documentElement.style.setProperty('--screen-height', window.innerHeight + 'px');
+        
+        document.documentElement.style.setProperty('--centerTranslation', window.innerHeight * 0.125 + 'px');
+        document.documentElement.style.setProperty('--negCenterTranslation', window.innerHeight * 0.125 * (-1) + 'px');
+       
+
+        document.documentElement.style.setProperty('--separateTranslation', window.innerHeight * (-0.245)/2.25 + 'px');
+        document.documentElement.style.setProperty('--negSeparateTranslation', window.innerHeight * (-0.245)/2.25 * (-1) + 'px');
+        
+    </script>
+
+</body>
+</html>
